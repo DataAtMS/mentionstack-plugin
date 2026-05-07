@@ -6,6 +6,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.1.1] — 2026-05-07
+
+### Fixed
+
+- **`seo/content-writer/SKILL.md` — slug computation works on macOS.** Replaced the GNU-sed `s/[^a-z0-9]\+/-/g` pattern (which silently no-ops in BSD sed and leaves spaces in directory names) with a Python one-liner that produces the same slug across platforms. Surfaced on first real invocation when "collagen gummies for skin" became a directory with literal spaces and broke downstream file writes.
+- **`seo/content-writer/references/blacklist.txt` — removed false-positive labels.** "Primary" and "Secondary" are normal SEO-jargon labels in metadata blocks ("Primary keyword: X", "Secondary keywords: Y") but were being flagged as banned in the deliverable scan. Removed both terms from the blacklist; "Tertiary" left in (less common, more often an AI tell). Both terms were already absent from body prose in the v0.1.0 humanization rules.
+
+---
+
 ## [0.1.0] — 2026-05-07
 
 ### Initial scaffold

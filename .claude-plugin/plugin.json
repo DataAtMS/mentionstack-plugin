@@ -1,6 +1,6 @@
 {
   "name": "mentionstack",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Mentionstack's GEO/AEO/SEO toolkit for Claude. DataForSEO-driven content production, keyword research, schema markup, and LLM citation tracking — every deliverable runs through the Mentionstack scientific standard (hypothesis, target keywords, target LLMs, expected outcome, approval gate).",
   "author": {
     "name": "Mentionstack",

@@ -376,8 +376,6 @@ For example
 For instance
 Foray
 Namely
-Primary
-Secondary
 Tertiary
 Various
 Vast

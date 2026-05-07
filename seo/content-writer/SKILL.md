@@ -104,7 +104,7 @@ Every piece gets a dedicated folder where research, brief, draft, deliverable, a
 ```bash
 BASE_DIR="${MENTIONSTACK_DATA_DIR:-$HOME/.mentionstack}"
 DATE=$(date +%Y-%m-%d)
-KEYWORD_SLUG=$(echo "<target keyword>" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]\+/-/g' | sed 's/^-//;s/-$//')
+KEYWORD_SLUG=$(python3 -c "import re,sys; print(re.sub(r'[^a-z0-9]+', '-', sys.argv[1].lower()).strip('-'))" "<target keyword>")
 OUTPUT_DIR="$BASE_DIR/clients/$CLIENT_NAME/$DATE-$KEYWORD_SLUG"
 mkdir -p "$OUTPUT_DIR"
 echo "Output directory: $OUTPUT_DIR"
