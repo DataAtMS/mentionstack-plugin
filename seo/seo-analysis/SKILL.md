@@ -43,7 +43,7 @@ cold.
 Before doing anything else, check for previously audited sites:
 
 ```bash
-ls ~/.toprank/business-context/*.json 2>/dev/null | xargs -I{} python3 -c "
+ls ~/.mentionstack/business-context/*.json 2>/dev/null | xargs -I{} python3 -c "
 import json, sys
 from datetime import datetime, timezone
 try:
@@ -61,7 +61,7 @@ except: pass
 > 1. https://example.com (audited 12 days ago)
 > 2. Enter a different URL"
 
-If the user picks a cached site, load `target_url` from that domain's `~/.toprank/business-context/<domain>.json` and set it as `$TARGET_URL`. Skip to Phase 0.
+If the user picks a cached site, load `target_url` from that domain's `~/.mentionstack/business-context/<domain>.json` and set it as `$TARGET_URL`. Skip to Phase 0.
 
 **If no cached sites exist**, ask the user:
 
@@ -97,7 +97,7 @@ After identifying `$TARGET_URL`, derive the domain (used throughout the entire a
 
 ```bash
 DOMAIN=$(python3 -c "import sys; from urllib.parse import urlparse; print(urlparse(sys.argv[1]).netloc.lstrip('www.'))" "$TARGET_URL")
-AUDIT_LOG="$HOME/.toprank/audit-log/${DOMAIN}.json"
+AUDIT_LOG="$HOME/.mentionstack/audit-log/${DOMAIN}.json"
 [ -f "$AUDIT_LOG" ] && cat "$AUDIT_LOG" || echo "NOT_FOUND"
 ```
 
@@ -126,7 +126,7 @@ API key, suggest:
 
 > "For reliable PageSpeed analysis, create an API key at
 > https://console.cloud.google.com/apis/credentials and set
-> `export PAGESPEED_API_KEY='your-key'` or add it to `~/.toprank/.env`."
+> `export PAGESPEED_API_KEY='your-key'` or add it to `~/.mentionstack/.env`."
 
 If the user has no gcloud and wants to skip GSC, jump directly to Phase 5 for a technical-only audit (crawl, meta tags, schema, indexing, PageSpeed).
 
@@ -436,11 +436,11 @@ reveal what real visitors search for, in their own words.
 
 ### Check for cached personas
 
-Personas are cached at `~/.toprank/personas/` keyed by domain hostname. Check
+Personas are cached at `~/.mentionstack/personas/` keyed by domain hostname. Check
 whether a persona file already exists (`$DOMAIN` is already set from Step 0.5):
 
 ```bash
-PERSONA_FILE="$HOME/.toprank/personas/$DOMAIN.json"
+PERSONA_FILE="$HOME/.mentionstack/personas/$DOMAIN.json"
 [ -f "$PERSONA_FILE" ] && cat "$PERSONA_FILE" || echo "NOT_FOUND"
 ```
 
@@ -487,11 +487,11 @@ this persona would type, the persona is speculative and should be dropped.
 
 ### Persist personas
 
-Save to `~/.toprank/personas/<domain>.json` using a Python one-liner to ensure
+Save to `~/.mentionstack/personas/<domain>.json` using a Python one-liner to ensure
 valid JSON (not a heredoc — heredocs with JSON are fragile):
 
 ```bash
-mkdir -p "$HOME/.toprank/personas"
+mkdir -p "$HOME/.mentionstack/personas"
 python3 -c "
 import json, sys
 data = {
@@ -538,7 +538,7 @@ not guessed. Present them as context for what follows:
 Then immediately continue to Phase 4. Do not wait for a response. If the user
 corrects a persona later, update the file and adjust any affected recommendations.
 
-**Reference `$PERSONA_FILE` path as `~/.toprank/personas/<domain>.json` in later
+**Reference `$PERSONA_FILE` path as `~/.mentionstack/personas/<domain>.json` in later
 phases — derive `<domain>` from the target URL each time rather than relying on
 shell variable persistence.**
 
@@ -1138,7 +1138,7 @@ After the report, write the audit log entry (see Phase 6.5 below before ending).
 After delivering the report, append a concise entry to the audit log. `$DOMAIN` and `$AUDIT_LOG` are already set from Step 0.5.
 
 ```bash
-mkdir -p "$HOME/.toprank/audit-log"
+mkdir -p "$HOME/.mentionstack/audit-log"
 ```
 
 Use Python to append (creates the file with a single-element array if it doesn't exist). Replace all `<FILL>` values with real data from the report before running:
@@ -1178,7 +1178,7 @@ json.dump(existing, open(log_path, "w"), indent=2)
 print(f"Audit log saved to {log_path}")
 ```
 
-Confirm with a one-liner: "Audit log saved to `~/.toprank/audit-log/$DOMAIN.json`."
+Confirm with a one-liner: "Audit log saved to `~/.mentionstack/audit-log/$DOMAIN.json`."
 
 ---
 

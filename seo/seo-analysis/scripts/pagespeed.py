@@ -26,7 +26,7 @@ PSI_API = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
 
 def _load_api_key_from_env_files():
     """Try to load PAGESPEED_API_KEY from .env files if not in environment."""
-    for env_file in [".env", ".env.local", os.path.expanduser("~/.toprank/.env")]:
+    for env_file in [".env", ".env.local", os.path.expanduser("~/.mentionstack/.env")]:
         if os.path.isfile(env_file):
             try:
                 with open(env_file) as f:
@@ -277,7 +277,7 @@ def main():
         print("Using PageSpeed API key.", file=sys.stderr)
     else:
         print("No API key found. Requests may hit quota limits.", file=sys.stderr)
-        print("  Set PAGESPEED_API_KEY or add to ~/.toprank/.env", file=sys.stderr)
+        print("  Set PAGESPEED_API_KEY or add to ~/.mentionstack/.env", file=sys.stderr)
 
     tasks = []
     for url in urls:

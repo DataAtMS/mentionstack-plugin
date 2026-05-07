@@ -10,7 +10,7 @@ This is shared logic. Any SEO skill can reference it. The invoking skill control
 
 ```bash
 DOMAIN=$(python3 -c "import sys; from urllib.parse import urlparse; print(urlparse(sys.argv[1]).netloc.lstrip('www.'))" "$TARGET_URL")
-BC_FILE="$HOME/.toprank/business-context/$DOMAIN.json"
+BC_FILE="$HOME/.mentionstack/business-context/$DOMAIN.json"
 ```
 
 ---
@@ -20,7 +20,7 @@ BC_FILE="$HOME/.toprank/business-context/$DOMAIN.json"
 Check whether a fresh cache exists and emit a status tag the invoking skill can branch on:
 
 ```bash
-mkdir -p "$HOME/.toprank/business-context"
+mkdir -p "$HOME/.mentionstack/business-context"
 if [ -f "$BC_FILE" ]; then
   AGE_DAYS=$(python3 -c "
 import json, sys
@@ -122,7 +122,7 @@ data = {
     "notes":            notes,
 }
 
-bc_file = os.path.expanduser(f"~/.toprank/business-context/{domain}.json")
+bc_file = os.path.expanduser(f"~/.mentionstack/business-context/{domain}.json")
 os.makedirs(os.path.dirname(bc_file), exist_ok=True)
 with open(bc_file, "w") as f:
     json.dump(data, f, indent=2)

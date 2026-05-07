@@ -1,23 +1,23 @@
 {
-  "name": "nowork-studio",
+  "name": "dataatms",
   "owner": {
-    "name": "nowork-studio"
+    "name": "DataAtMS"
   },
   "metadata": {
-    "description": "The official Google Ads + SEO plugin from AdsAgent. SEO and Google Ads skills for Claude Code.",
-    "version": "0.13.0"
+    "description": "Mentionstack's internal Claude Code plugin marketplace.",
+    "version": "0.1.0"
   },
   "plugins": [
     {
-      "name": "toprank",
+      "name": "mentionstack",
       "source": "./",
-      "description": "The official Google Ads + SEO plugin from AdsAgent. SEO analysis, Google Ads management, keyword research, content optimization, schema markup, and meta tags optimization.",
-      "version": "0.13.0",
+      "description": "Mentionstack's GEO/AEO/SEO toolkit. DataForSEO-driven content, keyword research, schema markup, LLM citation tracking, and the Mentionstack scientific delivery standard.",
+      "version": "0.1.0",
       "author": {
-        "name": "AdsAgent",
-        "url": "https://adsagent.org"
+        "name": "Mentionstack",
+        "url": "https://mentionstack.com"
       },
-      "category": "productivity"
+      "category": "marketing"
     }
   ]
 }

@@ -1,23 +1,18 @@
 {
-  "name": "toprank",
-  "version": "0.13.0",
-  "description": "The official Google Ads + SEO plugin from AdsAgent. SEO analysis, Google Ads management, keyword research, content optimization, and schema markup tools powered by Google Search Console and Google Ads APIs.",
+  "name": "mentionstack",
+  "version": "0.1.0",
+  "description": "Mentionstack's GEO/AEO/SEO toolkit for Claude. DataForSEO-driven content production, keyword research, schema markup, and LLM citation tracking — every deliverable runs through the Mentionstack scientific standard (hypothesis, target keywords, target LLMs, expected outcome, approval gate).",
   "author": {
-    "name": "AdsAgent",
-    "url": "https://adsagent.org"
+    "name": "Mentionstack",
+    "url": "https://mentionstack.com"
   },
   "skills": [
-    "./google-ads/ads",
-    "./google-ads/ads-audit",
-    "./google-ads/ads-copy",
-    "./google-ads/ads-landing",
     "./seo/seo-analysis",
     "./seo/content-writer",
     "./seo/keyword-research",
     "./seo/meta-tags-optimizer",
     "./seo/schema-markup-generator",
     "./seo/setup-cms",
-    "./toprank-upgrade-skill",
     "./gemini"
   ]
 }

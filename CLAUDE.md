@@ -1,38 +1,56 @@
-# Toprank — Public Claude Code Plugin
+# Mentionstack Plugin — Working Notes
 
-**This is the public, open-source repository that ships to all customers and the community.**
-
-Toprank is a Claude Code plugin providing SEO and Google Ads skills. It is distributed via the `nowork-studio` marketplace and installed by end users into Claude Code / Claude Desktop. Every change here is user-facing.
+Internal Claude Code plugin for Mentionstack. Forked from `nowork-studio/toprank` and being adapted for GEO/AEO-first agency delivery.
 
 ## Repository purpose
 
-- Home of the `toprank` plugin — the public artifact customers install.
-- Contains skills under `google-ads/`, `seo/`, `gemini/`, and `toprank-upgrade-skill/`.
+- Internal toolkit. Private — not currently distributed publicly.
+- Houses skills under `seo/` (foundational SEO capabilities) and eventually `geo/` (Mentionstack moat — entity building, persona content, parasite distribution, LLM citation tracking, AI Overview monitoring).
+- Skills are namespaced as `/mentionstack:<skill-name>`.
 - Registered via `.claude-plugin/plugin.json` (skills list) and `.claude-plugin/marketplace.json` (plugin metadata).
-- Paired with the AdsAgent MCP server (`https://www.adsagent.org`) for Google Ads write operations, and with Google Search Console for SEO reads.
-
-## Critical: this ships to users
-
-- Treat every commit as a release candidate. Broken skills, bad prompts, or missing files become customer bug reports.
-- Never add internal-only notes, secrets, credentials, dev scratch files, or references to private infra. This repo is public.
-- Test skills end-to-end before shipping — `SKILL.md` frontmatter (`name`, `description`, triggers) is how Claude decides to invoke them; typos or stale descriptions break discovery.
 
 ## When adding or modifying a skill
 
-1. Create/edit the skill directory under the appropriate category (`google-ads/`, `seo/`, etc.) with a `SKILL.md` containing valid frontmatter.
-2. **Register it in `.claude-plugin/plugin.json`** under the `skills` array. A skill that exists on disk but isn't listed here will NOT appear in the installed plugin — this has already bitten us once with `ads-landing`.
-3. Bump the version in three places so upgrades propagate:
+1. Create/edit the skill directory under the appropriate category with a `SKILL.md` containing valid frontmatter (`name`, `description`).
+2. **Register it in `.claude-plugin/plugin.json`** under the `skills` array. A skill that exists on disk but isn't listed here will NOT appear in the installed plugin.
+3. Bump version in three places so upgrades propagate:
    - `.claude-plugin/plugin.json` → `version`
    - `.claude-plugin/marketplace.json` → both `metadata.version` and `plugins[0].version`
    - `VERSION` file at repo root
 4. Update `CHANGELOG.md` with a user-facing note.
-5. Verify locally, then ship via `/ship`. Users pick up the new version through `toprank:toprank-upgrade`.
 
 ## Versioning
 
-Semantic-ish: bump patch for skill additions / fixes, minor for new categories or meaningful capability jumps, major for breaking skill API changes. Keep `VERSION`, `plugin.json`, and `marketplace.json` in lockstep — drift causes upgrade detection bugs.
+Semantic-ish: bump patch for skill additions / fixes, minor for new categories or meaningful capability jumps, major for breaking skill API changes.
+
+## Mentionstack scientific delivery standard (non-negotiable)
+
+Every content-producing skill enforces this. Treat each piece like a CRO test.
+
+- **Hypothesis** — what we expect this content to win
+- **Target keywords** — primary + secondary, grounded in DataForSEO data
+- **Target LLMs** — which answer engines we're aiming at (ChatGPT, Perplexity, Gemini, AI Overview)
+- **Expected outcome** — measurable result (citation, ranking, traffic, conversion)
+- **Approval gate** — Dylan or AM sign-off before publish
+
+Outcomes: Won / Lost / Inconclusive.
+
+## Connectors
+
+Skills reference external tools using the `~~category` placeholder pattern so they remain tool-agnostic.
+
+| Category | Placeholder | Purpose |
+|----------|-------------|---------|
+| DataForSEO | `~~dataforseo` | Keyword volume, SERP shape, competitor analysis, AI Overview tracking, LLM citation data (GEO add-on) |
+| Search Console | `~~search-console` | First-party impression/click data per client (Phase 2) |
+| CMS | `~~cms` | WordPress, Webflow, Shopify, Strapi, Contentful, Ghost (Phase 2) |
+
+Auth lives in `ventures/mentionstack/.env.local` (gitignored). Skills' bundled scripts load via `os.environ`.
+
+## State directory
+
+`~/.mentionstack/` for cached business contexts, client bibles, eval state, etc.
 
 ## Related repos
 
-- `adsagent-plugin/` (sibling dir, separate public repo) — a smaller Google-Ads-only plugin. Some skills are mirrored there; don't confuse it with this one.
-- AdsAgent MCP server — private, powers the Google Ads tool calls the skills depend on.
+- Public toprank (`nowork-studio/toprank`) — original upstream. Generic SEO/Ads. Mirror diverges over time as Mentionstack-specific capabilities land.

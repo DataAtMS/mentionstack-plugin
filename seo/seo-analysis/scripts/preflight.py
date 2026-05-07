@@ -366,7 +366,7 @@ def check_pagespeed_api_key():
         return
 
     # Check .env and .env.local files in common locations
-    for env_file in [".env", ".env.local", os.path.expanduser("~/.toprank/.env")]:
+    for env_file in [".env", ".env.local", os.path.expanduser("~/.mentionstack/.env")]:
         if os.path.isfile(env_file):
             try:
                 with open(env_file) as f:
@@ -389,7 +389,7 @@ def check_pagespeed_api_key():
     print("  1. Go to https://console.cloud.google.com/apis/credentials", file=sys.stderr)
     print("  2. Click 'Create Credentials' > 'API key'", file=sys.stderr)
     print("  3. Set: export PAGESPEED_API_KEY='your-key-here'", file=sys.stderr)
-    print("     Or add to ~/.toprank/.env: PAGESPEED_API_KEY=your-key-here", file=sys.stderr)
+    print("     Or add to ~/.mentionstack/.env: PAGESPEED_API_KEY=your-key-here", file=sys.stderr)
     print("", file=sys.stderr)
 
 
